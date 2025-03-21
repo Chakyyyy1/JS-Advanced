@@ -98,6 +98,54 @@ btnClearItems.addEventListener("click", () => {
     btnInsertUpdate.value = "insert";
 
 });
+btnInsertUpdate.addEventListener("click", () => {
+    const inputTxt = document.getElementsByTagName("input");
+
+    if (btnInsertUpdate.value == "insert") {
+        for (const txt of inputTxt) {
+            if (txt.value == " " || txt.value == "") {
+                alert("Please complete all the text inputs!");
+                return;
+            }
+        }
+
+        let infoRecord = {
+            fname: inputTxt[0].value,
+            mname: inputTxt[1].value,
+            lname: inputTxt[2].value,
+            age: parseInt(inputTxt[3].value)
+        };
+
+        for (const txt of inputTxt) {
+            txt.value = "";
+        }
+
+        arrRecords.push(infoRecord);
+        iterateRecords();
+
+        // Update status message
+        document.getElementById("status").style.display = "inline";
+        document.getElementById("status").innerHTML = "Record added successfully!";
+
+    } else {
+        // Update existing record logic...
+    }
+});
+
+btnClearItems.addEventListener("click", () => {
+    arrRecords = [];
+    while (tblRecords.hasChildNodes()) {
+        tblRecords.removeChild(tblRecords.firstChild);
+    }
+
+    // Update status message
+    document.getElementById("status").style.display = "inline";
+    document.getElementById("status").innerHTML = "No Records...";
+
+    btnInsertUpdate.innerHTML = "Insert";
+    btnInsertUpdate.value = "insert";
+});
+
 
 
 function iterateRecords() {
